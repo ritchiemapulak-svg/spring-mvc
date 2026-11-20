@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Repository for {@link Auth_Role} entities.
  */
-public interface AuthRoleRepository extends JpaRepository<Auth_Role, Long>{
+public interface AuthRoleRepository extends JpaRepository<Auth_Role, Long> {
     Optional<Auth_Role> findByName(String theName);
     Boolean existsByName(String theUsername);
 }

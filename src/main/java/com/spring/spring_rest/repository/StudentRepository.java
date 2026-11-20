@@ -12,5 +12,5 @@ import com.spring.spring_rest.entity.Student;
  * type parameters are the entity type ({@code Student}) and the type
  * of its id ({@code Long}).
  */
-public interface StudentRepository extends JpaRepository<Student, Long>{
+public interface StudentRepository extends JpaRepository<Student, Long> {
 }
