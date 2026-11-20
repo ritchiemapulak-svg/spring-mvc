@@ -94,10 +94,11 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(Arrays.asList("http://172.30.240.1:5500"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", 
+        configuration.setAllowedOrigins(Arrays.asList(
+        "http://172.30.240.1:5500"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST",
             "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", 
+        configuration.setAllowedHeaders(Arrays.asList("Authorization",
             "Cache-Control", "Content-Type"));
         
         configuration.setAllowCredentials(true);
