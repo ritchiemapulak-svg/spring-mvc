@@ -5,69 +5,251 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Management System</title>
     <style>
+        :root {
+            --bg: #eef2f7;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --primary: #4f46e5;
+            --success: #16a34a;
+            --info: #2563eb;
+            --danger: #dc2626;
+            --secondary: #64748b;
+            --radius: 12px;
+            --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-            background-color: #f4f7f6;
+            margin: 0;
+            padding: 32px 16px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.5;
+            background: linear-gradient(180deg, #e0e7ff 0, var(--bg) 280px);
+            min-height: 100vh;
         }
+
         .container {
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
         }
-        h2 { color: #333; }
-        .form-group {
-            margin-bottom: 15px;
+
+        /* Header */
+        .header-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
         }
+        .header-group h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+        }
+
+        /* Form */
+        form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px 20px;
+            padding: 24px;
+            background: #f9fafb;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+        .form-group { margin: 0; }
+        .form-group:nth-of-type(3) { grid-column: 1 / -1; }
+
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
         }
-        input[type="text"], input[type="email"] {
+
+        input[type="text"],
+        input[type="email"] {
             width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 10px 12px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: var(--text);
+            background: var(--surface);
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            transition: border-color 0.15s, box-shadow 0.15s;
         }
-        .error-message { 
-            color: #dc3545; 
-            font-size: 0.85rem; 
-            margin-top: 5px; 
-            display: block; 
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.18);
         }
+        input.invalid {
+            border-color: var(--danger);
+            background: #fef2f2;
+        }
+        input.invalid:focus {
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+        }
+
+        .error-message {
+            display: block;
+            min-height: 1.1em;
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: var(--danger);
+        }
+
+        /* Buttons */
         button {
-            padding: 10px 15px;
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: inherit;
+            color: #fff;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            color: white;
+            transition: transform 0.1s, box-shadow 0.15s, filter 0.15s;
         }
-        .btn-submit { background-color: #28a745; }
-        .btn-clear { background-color: #6c757d; }
-        .btn-edit { background-color: #007bff; margin-right: 5px; }
-        .btn-delete { background-color: #dc3545; }
-        
-        /* ADDED: Styling for your new logout button placement */
-        .btn-logout { background-color: #dc3545; float: right; }
-        .header-group { overflow: auto; margin-bottom: 20px; }
-        .header-group h2 { margin: 0; float: left; }
-        
+        button:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+        }
+        button:active { transform: translateY(1px); }
+        button:focus-visible {
+            outline: 3px solid rgba(79, 70, 229, 0.4);
+            outline-offset: 2px;
+        }
+
+        .btn-submit {
+            background-color: var(--success);
+            grid-column: 1 / -1;
+            justify-self: start;
+            min-width: 160px;
+        }
+        .btn-clear { background-color: var(--secondary); }
+        .btn-edit { background-color: var(--info); margin-right: 6px; }
+        .btn-delete { background-color: var(--danger); }
+        .btn-logout { background-color: var(--danger); flex-shrink: 0; }
+
+        .btn-edit, .btn-delete {
+            padding: 7px 14px;
+            font-size: 0.8rem;
+        }
+
+        /* Table */
         table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 25px;
+            margin-top: 28px;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
         }
         th, td {
-            padding: 12px;
+            padding: 14px 16px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--border);
         }
-        th { background-color: #f2f2f2; }
+        th {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            background: #f9fafb;
+        }
+        tbody tr { transition: background 0.15s; }
+        tbody tr:hover { background: #f5f7ff; }
+        tbody tr:last-child td { border-bottom: none; }
+        td:last-child { white-space: nowrap; }
+
+        /* Tablet */
+        @media (max-width: 768px) {
+            body { padding: 20px 12px; }
+            .container { padding: 22px; }
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            .container { padding: 18px; border-radius: 12px; }
+
+            .header-group {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .header-group h2 { font-size: 1.25rem; }
+            .btn-logout { width: 100%; }
+
+            form {
+                grid-template-columns: 1fr;
+                padding: 18px;
+            }
+            .form-group:nth-of-type(3) { grid-column: auto; }
+            .btn-submit { width: 100%; justify-self: stretch; }
+
+            /* Turn table rows into stacked cards */
+            table, thead, tbody, tr, th, td { display: block; }
+            table { border: none; margin-top: 22px; }
+            thead { display: none; }
+
+            tbody tr {
+                margin-bottom: 14px;
+                padding: 6px 14px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+            }
+            tbody tr:hover { background: var(--surface); }
+
+            td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 12px;
+                padding: 10px 0;
+                text-align: right;
+                word-break: break-word;
+                border-bottom: 1px solid var(--border);
+            }
+            td:last-child {
+                justify-content: flex-end;
+                border-bottom: none;
+                white-space: normal;
+            }
+            td::before {
+                flex-shrink: 0;
+                font-size: 0.72rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: var(--muted);
+            }
+            td:nth-child(1)::before { content: "ID"; }
+            td:nth-child(2)::before { content: "First Name"; }
+            td:nth-child(3)::before { content: "Last Name"; }
+            td:nth-child(4)::before { content: "Email"; }
+            td:nth-child(5)::before { content: none; }
+        }
     </style>
 </head>
 <body>
