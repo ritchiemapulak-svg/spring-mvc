@@ -7,17 +7,12 @@ import com.spring.spring_rest.entity.Auth_Role;
 import com.spring.spring_rest.entity.Auth_User;
 import com.spring.spring_rest.repository.AuthRoleRepository;
 import com.spring.spring_rest.repository.AuthUserRepository;
-
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
